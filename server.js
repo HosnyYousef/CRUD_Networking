@@ -16,14 +16,19 @@ MongoClient.connect(connectionString).then(
   console.log('Connected to Database')
 ).catch(error => console.error(error))
 
-MongoClient.connect(/* ... */)
+MongoClient.connect(connectionString)
   .then(client => {
     // ...
     const db = client.db('star-wars-quotes')
     app.use(/* ... */)
-    app.get(/* ... */)
+    app.get('/', (req, res) => {
+      res.sendFile(__dirname + '/index.html')
+      // Note: __dirname is the current directory you're in. Try logging it and see what you get!
+      // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
+    })  
     app.post(/* ... */)
     app.listen(/* ... */)
+    console.log('Connected to Database')
   })
   .catch(console.error)
 
@@ -31,11 +36,6 @@ MongoClient.connect(/* ... */)
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-    // Note: __dirname is the current directory you're in. Try logging it and see what you get!
-    // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
-  })
 
   app.post('/quotes', (req, res) => {
     console.log(req.body)
