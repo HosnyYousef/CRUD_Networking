@@ -13,7 +13,8 @@ let connectionString = 'mongodb://admin:112233445566@cluster0-shard-00-00.gy43g.
 MongoClient.connect(connectionString)
   .then(client => {
     console.log('Connected to Database')
-    const db = client.db('star-wars-quotes')
+    const db = client.db('network-data-quotes')
+    const quotesCollection = db.collection('quotes')
     app.use(express.urlencoded({ extended: true }))
     app.get('/', (req, res) => {
       res.sendFile(__dirname + '/index.html')
@@ -21,7 +22,12 @@ MongoClient.connect(connectionString)
       // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
     })
     app.post('/quotes', (req, res) => {
-      console.log(req.body)
+      quotesCollection
+        .insertOne(req.body)
+        .then(result => {
+          console.log(result)
+        })
+        .catch(error => console.error(error))
     })
   
     app.listen(3000, function () {
