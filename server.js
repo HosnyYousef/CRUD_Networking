@@ -10,11 +10,18 @@ let connectionString = 'mongodb://admin:112233445566@cluster0-shard-00-00.gy43g.
 
 // 'mongodb+srv://admin:112233445566@cluster0.gy43g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
+//CRUD
+  // Create
+  // Read
+  // Update
+  // Delete
+
 MongoClient.connect(connectionString)
   .then(client => {
     console.log('Connected to Database')
     const db = client.db('network-data-quotes')
     const quotesCollection = db.collection('quotes')
+    app.set('view engine', 'ejs')
     app.use(express.urlencoded({ extended: true }))
     app.get('/', (req, res) => {
       res.sendFile(__dirname + '/index.html')
@@ -22,6 +29,7 @@ MongoClient.connect(connectionString)
       .find()
       .toArray()
       .then(results => {
+        res.render(view, locals)
         console.log(results)
       })
       .catch(error => console.error(error))
