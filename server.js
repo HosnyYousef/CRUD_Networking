@@ -6,26 +6,33 @@ const MongoClient = require('mongodb').MongoClient
 
 console.log('May Node be with you')
 
-let connectionString = 'mongodb+srv://admin:112233445566@cluster0.gy43g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+let connectionString = 
+'mongodb+srv://admin:112233445566@cluster0.gy43g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+'mongodb+srv://admin:112233445566@cluster0.gy43g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 MongoClient.connect(connectionString)
-  .then(
-    client => {
-    const db = client.db('networking_leads')
-    app.use(express.urlencoded({ extended: true }))
-    app.get('/', (req, res) => {
-      res.sendFile(__dirname + '/index.html')
-    })  
-    app.post('/quotes', (req, res) => {
-      console.log(req.body)
-    })  
-    app.listen(3000, function () {
-      console.log('listening on 3000')
-    })
+  .then(client => {
     console.log('Connected to Database')
+    const db = client.db('star-wars-quotes')
   })
   .catch(console.error)
 
+app.use(express.urlencoded({ extended: true }))
+
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html')
+    // Note: __dirname is the current directory you're in. Try logging it and see what you get!
+    // Mine was '/Users/zellwk/Projects/demo-repos/crud-express-mongo' for this app.
+  })
+
+  app.post('/quotes', (req, res) => {
+    console.log(req.body)
+  })
+
+app.listen(3000, function () {
+    console.log('listening on 3000')
+  })
 
 
 
