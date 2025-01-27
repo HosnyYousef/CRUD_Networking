@@ -31,6 +31,7 @@ MongoClient.connect(connectionString)
       .then(results => {
         res.render(view, locals)
         console.log(results)
+        res.render('index.ejs', { quotes: results })
       })
       .catch(error => console.error(error))
     })
