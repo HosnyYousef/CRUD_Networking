@@ -21,20 +21,23 @@ MongoClient.connect(connectionString)
     console.log('Connected to Database')
     const db = client.db('network-data-quotes')
     const quotesCollection = db.collection('quotes')
+
     app.set('view engine', 'ejs')
+
     app.use(express.urlencoded({ extended: true }))
+
     app.get('/', (req, res) => {
-      res.sendFile(__dirname + '/index.html')
-      db.collection('quotes')
-      .find()
-      .toArray()
+      quotesCollection.find().toArray()
       .then(results => {
-        res.render(view, locals)
-        res.render('index.ejs', { quotes: results })
+
         console.log(results)
       })
+      // db.collection('quotes')
       .catch(error => console.error(error))
+      res.render('index.ejs', { quotes: results })
+      // res.sendFile(__dirname + '/index.html')
     })
+
     app.post('/quotes', (req, res) => {
       quotesCollection
         .insertOne(req.body)
