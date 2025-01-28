@@ -29,13 +29,11 @@ MongoClient.connect(connectionString)
     app.get('/', (req, res) => {
       quotesCollection.find().toArray()
       .then(results => {
-
         console.log(results)
+        res.render('index.ejs', {quotes: results})
       })
       // db.collection('quotes')
       .catch(error => console.error(error))
-      res.render('index.ejs', { quotes: results })
-      // res.sendFile(__dirname + '/index.html')
     })
 
     app.post('/quotes', (req, res) => {
