@@ -7,6 +7,14 @@
   <title>Star Wars Quote App</title>
 </head>
 
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+</style>
+
 <body>
   <h1>May Node and Express be with you.</h1>
 
@@ -28,7 +36,7 @@
 
 
 
-  <table class="quotes">
+  <table class="quotes" id="myTable">
     <!-- Loop through quotes -->
     <% for(var i=0; i < quotes.length; i++) {%>
       <tr>
@@ -53,13 +61,20 @@
         <td class="quote">
           <%= quotes[i].lastContacted %>
         </td>
+
+        <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
       </tr>
-
-
-
-
       <% } %>
+
   </table>
+
+  <script>
+    function deleteRow(r) {
+      var i = r.parentNode.parentNode.rowIndex;
+      document.getElementById("myTable").deleteRow(i);
+    }
+  </script>
+
   <script src="/main.js"></script>
 </body>
 
