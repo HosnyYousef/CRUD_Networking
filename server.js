@@ -53,6 +53,16 @@ MongoClient.connect(connectionString)
       console.log(req.body)
     })
   
+  // trying to delete from database mongoDB
+    app.delete('/quotes', (req, res) => {
+      quotesCollection
+      .deleteOne(query, options)
+      .then(result => {
+        res.json(`Deleted Darth Vader's quote`)
+      })
+      .catch(error => console.error(error))    })
+
+
     app.listen(3000, function () {
       console.log('listening on 3000')
     })

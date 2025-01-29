@@ -65,8 +65,14 @@
           <%= quotes[i].lastContacted %>
         </td>
 
-        <td><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+        <td>
+
+          <input type="button" id="delete-button" value="Delete" onclick="deleteRow(this)">
+        </td>
       </tr>
+
+
+
       <% } %>
 
 
@@ -75,10 +81,20 @@
 
 
   <script>
+
+    // const deleteButton = document.querySelector('#delete-button')
+
+    // deleteButton.addEventListener('click', _ => {
+    //   fetch('/quotes', {
+    //     method: 'delete',
+    //   })
+    // })
+
     function deleteRow(r) {
       var i = r.parentNode.parentNode.rowIndex;
       document.getElementById("myTable").deleteRow(i);
     }
+
   </script>
 
   <script src="/main.js"></script>
