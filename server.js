@@ -26,6 +26,7 @@ MongoClient.connect(connectionString)
 
     app.use(express.urlencoded({ extended: true }))
     app.use(express.static('public'))
+    app.use(express.json())
 
     
 
@@ -46,6 +47,10 @@ MongoClient.connect(connectionString)
           res.redirect('/')
         })
         .catch(error => console.error(error))
+    })
+
+    app.put('/quotes', (req, res) => {
+      console.log(req.body)
     })
   
     app.listen(3000, function () {
