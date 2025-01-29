@@ -1,43 +1,66 @@
 <!-- index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Star Wars Quote App</title>
-  </head>
 
-  <body>
-    <h1>May Node and Express be with you.</h1>
+<head>
+  <meta charset="UTF-8" />
+  <title>Star Wars Quote App</title>
+</head>
 
-    <form action="/quotes" method="POST">
-      <input type="text" placeholder="name" name="name" />
-      <input type="text" placeholder="quote" name="position/company" />
-      <input type="text" placeholder="name" name="linkedin Profile URL" />
-      <input type="text" placeholder="quote" name="Last contacted" />
-      <input type="text" placeholder="name" name="name" />
-      <input type="text" placeholder="quote" name="quote" />
-      <button type="submit">Submit</button>
-    </form>
-    <h2>Quotes</h2>
+<body>
+  <h1>May Node and Express be with you.</h1>
 
-    <div>
-      <h2>Darth Vader invades!</h2>
-      <p>Replace first Yoda's quote with a quote written by Darth Vader</p>
-      <button id="update-button">Replace Yoda's quote</button>
-    </div>
+  <form action="/quotes" method="POST">
+    <input type="text" placeholder="name" name="name" />
+    <input type="text" placeholder="position/company" name="positionCompany" />
+    <input type="text" placeholder="Main Contact" name="contact" />
+    <input type="text" placeholder="date contacted" name="lastContacted" />
+    <button type="submit">Submit</button>
+  </form>
 
-    <ul class="quotes">
-      <!-- Loop through quotes -->
-      <% for(var i = 0; i < quotes.length; i++) {%>
-      <li class="quote">
-        <!-- Output name from the iterated quote object -->
-        <span><%= quotes[i].name %></span>:
-        <!-- Output quote from the iterated quote object -->
-        <span><%= quotes[i].quote %></span>
-      </li>
+  <h2>Quotes</h2>
+
+  <div>
+    <h2>Darth Vader invades!</h2>
+    <p>Replace first Yoda's quote with a quote written by Darth Vader</p>
+    <button id="update-button">Replace Yoda's quote</button>
+  </div>
+
+
+
+  <table class="quotes">
+    <!-- Loop through quotes -->
+    <% for(var i=0; i < quotes.length; i++) {%>
+      <tr>
+        <th>Company</th>
+        <th>position/company</th>
+        <th>Main Contact</th>
+        <th>date contacted</th>
+      </tr>
+      <tr>
+        <td class="quote">
+          <%= quotes[i].name %>
+        </td>
+
+        <td class="quote">
+          <%= quotes[i].positionCompany %>
+        </td>
+
+        <td class="quote">
+          <%= quotes[i].contact %>
+        </td>
+
+        <td class="quote">
+          <%= quotes[i].lastContacted %>
+        </td>
+      </tr>
+
+
+
+
       <% } %>
-    </ul>
-    <script src="/main.js"></script>
-  </body>
-</html>
+  </table>
+  <script src="/main.js"></script>
+</body>
 
+</html>
