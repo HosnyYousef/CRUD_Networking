@@ -35,18 +35,18 @@
   </div>
 
 
+  <table>
+    <tr>
+      <th>Company</th>
+      <th>position/company</th>
+      <th>Main Contact</th>
+      <th>date contacted</th>
+    </tr>
 
+  </table>
   <table class="quotes" id="myTable">
     <!-- Loop through quotes -->
     <% for(var i=0; i < quotes.length; i++) {%>
-      
-      <tr>
-        <th>Company</th>
-        <th>position/company</th>
-        <th>Main Contact</th>
-        <th>date contacted</th>
-        <td><input value="Delete" onclick="deleteRow(this)"></td>
-      </tr>
 
       <tr>
         <td class="quote">
@@ -69,7 +69,10 @@
       </tr>
       <% } %>
 
+
   </table>
+
+
 
   <script>
     function deleteRow(r) {
