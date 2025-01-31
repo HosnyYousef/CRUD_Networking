@@ -44,6 +44,8 @@
     </tr>
 
   </table>
+
+
   <table class="quotes" id="myTable">
     <!-- Loop through quotes -->
     <% for(var i=0; i < quotes.length; i++) {%>
@@ -67,14 +69,12 @@
 
         <td>
 
-          <input type="button" id="delete-button" value="Delete" onclick="deleteRow(this)">
+          <input type="button" value="Delete" onclick="deleteRow('<%= quotes[i]._id %>')">
+
         </td>
       </tr>
 
-
-
       <% } %>
-
 
   </table>
 
@@ -82,18 +82,23 @@
 
   <script>
 
-    // const deleteButton = document.querySelector('#delete-button')
+function deleteRow(quoteId) {
+    if (!confirm("Are you sure you want to delete this quote?")) return;
 
-    // deleteButton.addEventListener('click', _ => {
-    //   fetch('/quotes', {
-    //     method: 'delete',
-    //   })
-    // })
-
-    function deleteRow(r) {
-      var i = r.parentNode.parentNode.rowIndex;
-      document.getElementById("myTable").deleteRow(i);
-    }
+    fetch(`/api/deleteQuote/${quoteId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert("Quote deleted successfully!");
+            location.reload(); // Refresh the page to reflect changes
+        } else {
+            alert("Failed to delete quote.");
+        }
+    })
+    .catch(error => console.error("Error deleting:", error));
+}
 
   </script>
 

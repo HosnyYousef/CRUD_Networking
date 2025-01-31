@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
-const MongoClient = require('mongodb').MongoClient
+// const MongoClient = require('mongodb').MongoClient
+const { MongoClient, ObjectId } = require('mongodb');
+
 
 //to run code: npm run dev
 
@@ -55,23 +57,27 @@ MongoClient.connect(connectionString)
   
   // trying to delete row from database mongoDB
 
-//   const deleteButton = document.querySelector('#delete-button')
-
-//   deleteButton.addEventListener('click', _ => {
-//     fetch('/quotes', {
-//       method: 'delete',
-//       headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({
-//       name: 'Darth Vader'
-//     })
-//   })
-//   .then(res => {
-//     if (res.ok) return res.json()
-//   })
-//   .then(data => {
-//     window.location.reload()
-//   })
-// })
+  app.delete('/api/deleteQuote/:id', async (req, res) => {
+    try {
+      const db = client.db('network-data-quotes'); // Make sure this matches
+      const quotesCollection = db.collection('quotes');
+  
+      const result = await quotesCollection.findOneAndDelete({
+        _id: new ObjectId(req.params.id),
+      });
+  
+      if (result.value) {
+        res.json({ success: true, deletedQuote: result.value });
+      } else {
+        // This triggers "Failed to delete quote."
+        res.json({ success: false, message: 'Quote not found' });
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      res.status(500).json({ success: false, error });
+    }
+  });
+  
 
 
 
